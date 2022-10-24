@@ -1,6 +1,11 @@
 class Department {
+    static fiscalYear = 2020;
     // name: string;
     protected employees: string[] = []
+
+    static createEmployee(name: string) {
+        return { name: name}
+    }
 
     constructor(private readonly id: string, public name: string) {
         // this.name = n;
@@ -74,7 +79,8 @@ class AccountingDepartment extends Department {
 
 
 const accounting = new AccountingDepartment('D1', []);
-
+const employee1 = Department.createEmployee('Max')
+console.log(employee1, Department.fiscalYear) 
 
 accounting.mostRecentReport = '通期会計レポート'
 
