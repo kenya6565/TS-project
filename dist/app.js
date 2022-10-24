@@ -23,7 +23,7 @@ class ITDepartment extends Department {
         this.admins = admins;
     }
     describe() {
-        console.log("IT部門 - ID: " + this.id);
+        console.log('IT部門 - ID: ' + this.id);
     }
 }
 class AccountingDepartment extends Department {
@@ -44,6 +44,13 @@ class AccountingDepartment extends Department {
         }
         this.addReport(value);
     }
+    static getInstance() {
+        if (AccountingDepartment.instance) {
+            return AccountingDepartment.instance;
+        }
+        this.instance = new AccountingDepartment('d2', []);
+        return this.instance;
+    }
     addReport(text) {
         this.reports.push(text);
         this.lastReport = text;
@@ -61,7 +68,8 @@ class AccountingDepartment extends Department {
         console.log('会計部門 - ID: ' + this.id);
     }
 }
-const accounting = new AccountingDepartment('D1', []);
+const accounting = AccountingDepartment.getInstance();
+const accounting2 = AccountingDepartment.getInstance();
 const employee1 = Department.createEmployee('Max');
 console.log(employee1, Department.fiscalYear);
 accounting.mostRecentReport = '通期会計レポート';
