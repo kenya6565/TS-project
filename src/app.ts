@@ -7,7 +7,7 @@ class Department {
         return { name: name}
     }
 
-    constructor(private readonly id: string, public name: string) {
+    constructor(protected readonly id: string, public name: string) {
         // this.name = n;
     }
 
@@ -75,6 +75,10 @@ class AccountingDepartment extends Department {
         this.employees.push(name)
     }
 
+    describe() {
+        console.log('会計部門 - ID: ' + this.id)
+    }
+
 }
 
 
@@ -85,7 +89,7 @@ console.log(employee1, Department.fiscalYear)
 accounting.mostRecentReport = '通期会計レポート'
 
 accounting.addReport('something')
-accounting.printReports()
+//accounting.printReports()
 console.log(accounting.mostRecentReport)
 
 // accounting.describe()
@@ -94,4 +98,6 @@ console.log(accounting.mostRecentReport)
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
 
-accounting.printEmployeeInformation()
+accounting.describe()
+
+//accounting.printEmployeeInformation()

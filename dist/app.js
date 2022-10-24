@@ -57,15 +57,17 @@ class AccountingDepartment extends Department {
         }
         this.employees.push(name);
     }
+    describe() {
+        console.log('会計部門 - ID: ' + this.id);
+    }
 }
 const accounting = new AccountingDepartment('D1', []);
 const employee1 = Department.createEmployee('Max');
 console.log(employee1, Department.fiscalYear);
 accounting.mostRecentReport = '通期会計レポート';
 accounting.addReport('something');
-accounting.printReports();
 console.log(accounting.mostRecentReport);
 accounting.addEmployee('Max');
 accounting.addEmployee('Manu');
-accounting.printEmployeeInformation();
+accounting.describe();
 //# sourceMappingURL=app.js.map
