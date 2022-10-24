@@ -40,8 +40,8 @@ class ITDepartment extends Department {
 class AccountingDepartment extends Department {
   private lastReport: string;
 
-//   クラスプロパティを使ってAccountingDepartmentのインスタンスを保持する
-  private static instance: AccountingDepartment
+  //   クラスプロパティを使ってAccountingDepartmentのインスタンスを保持する
+  private static instance: AccountingDepartment;
 
   get mostRecentReport() {
     if (this.lastReport) {
@@ -66,10 +66,10 @@ class AccountingDepartment extends Department {
   static getInstance() {
     // this.instanceでもOK(このthisはAccountingDepartmentを指す)
     if (AccountingDepartment.instance) {
-        return AccountingDepartment.instance
+      return AccountingDepartment.instance;
     }
-    this.instance = new AccountingDepartment('d2', [])
-    return this.instance
+    this.instance = new AccountingDepartment('d2', []);
+    return this.instance;
   }
 
   addReport(text: string) {
@@ -95,8 +95,8 @@ class AccountingDepartment extends Department {
 
 // const accounting = new AccountingDepartment('D1', []);
 
-const accounting = AccountingDepartment.getInstance()
-const accounting2 = AccountingDepartment.getInstance()
+const accounting = AccountingDepartment.getInstance();
+const accounting2 = AccountingDepartment.getInstance();
 
 const employee1 = Department.createEmployee('Max');
 console.log(employee1, Department.fiscalYear);
