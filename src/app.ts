@@ -1,6 +1,6 @@
 interface Greetable {
   // どのような構造なのかという形のみを書く
-  name: string;
+  readonly name: string;
 
   // 引数、返り値を書く
   greet(phrase: string): void;
@@ -23,5 +23,6 @@ let user1: Greetable;
 
 // user1をPersonに従って定義
 user1 = new Person('Max', 30)
+user1.name = 'John'
 console.log(user1)
 user1.greet('hello I am')
