@@ -1,5 +1,5 @@
 "use strict";
-function add(n1, n2) {
+function add2(n1, n2) {
     return n1 + n2;
 }
 function printResult(num) {
@@ -13,7 +13,7 @@ addAndHandle(10, 20, (result) => {
     console.log(result);
 });
 let combineValues;
-combineValues = add;
+combineValues = add2;
 console.log(combineValues(1, 2));
-printResult(add(5, 12));
+printResult(add2(5, 12));
 //# sourceMappingURL=functions.js.map
