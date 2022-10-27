@@ -1,4 +1,4 @@
-type Combinable = number | string
+// type Combinable = number | string
 type ConversionDescriptor = 'as-number' | 'as-text'
 
 function combine(

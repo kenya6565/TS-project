@@ -1,50 +1,27 @@
-// type AddFn = (a: number, b:number) => number;
-interface AddFn {
-  // インターフェースの場合はメソッド名はない(匿名メソッド的な)
-  (a: number, b: number): number;
+type Admin = {
+    name: string;
+    privileges: string[];
 }
 
-let add: AddFn;
+type Employee = {
+    name: string;
+    startDate: Date;
 
-add = (n1: number, n2: number) => {
-  return n1 + n2;
-};
-interface Named {
-  name?: string;
-  // インターフェースを持つクラスがこのプロパティを持つかは任意であるよ
-  outputName?: string;
 }
 
-interface Greetable extends Named {
-  // どのような構造なのかという形のみを書く
+// AdminとEmployeeを持ってる型
+// &で合体
+type ElevatedEmploee = Admin & Employee;
 
-  // 引数、返り値を書く
-  greet(phrase: string): void;
+const e1: ElevatedEmploee = {
+    name: 'Max',
+    privileges: ['create-server'],
+    startDate: new Date
 }
 
-// personクラスはGreetableというインターフェースに従って実装するよ
-class Person implements Greetable, Named {
-  name?: string;
-  constructor(n: string, public age: number) {
-    if (n) {
-      this.name = n;
-    }
-  }
 
-  greet(phrase: string) {
-    if (this.name) {
-      console.log(phrase + ' ' + this.name);
-    } else {
-      console.log('Hi');
-    }
-  }
-}
+type Combinable = string | number
+type Numeric = number | boolean;
 
-// user1にPerson型と同じ構造を割り当てたい
-let user1: Greetable;
-
-// user1をPersonに従って定義
-user1 = new Person('Max', 30);
-user1.name = 'John';
-console.log(user1);
-user1.greet('hello I am');
+// CombinableとNumericで共通しているのがnumberなのでnumber型になる
+type Universal = Combinable & Numeric
