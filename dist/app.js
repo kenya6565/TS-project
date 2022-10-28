@@ -61,4 +61,8 @@ const paragraph = document.getElementById('user-input');
 if (paragraph) {
     paragraph.value = 'こんにちは';
 }
+const errorBag = {
+    1: '正しい',
+    2: 'いいよ'
+};
 //# sourceMappingURL=app.js.map

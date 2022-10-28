@@ -119,3 +119,18 @@ const paragraph = document.getElementById('user-input');
 if (paragraph) {
     (paragraph as HTMLInputElement).value = 'こんにちは'
 }
+
+interface ErrorContainer { //{ email: '正しいメールアドレスでではありません', username: 'ユーザー名に記号を含めることはできません'}
+    // emailやusernameみたいにstringが入るであろうプロパティ名でなきゃダメだよ~
+    // このstring型の正確な名前はわからないんだよね
+    // どのくらいの数のstring型かもわからないんだよね
+    [prop: string]: string;
+
+    // 同じ型であれば違うプロパティは設定できる(今回はstringならOK)
+    // id: string
+}
+
+const errorBag: ErrorContainer = {
+    1:'正しい',
+    2:'いいよ'
+}
