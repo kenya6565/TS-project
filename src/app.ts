@@ -38,6 +38,19 @@ function add2(a: Combinable, b: Combinable) {
 
 const result = add2('hoge', 'fuga') 
 
+
+const fetchedUserData = {
+    id: 'u1',
+    name: 'user1',
+    job: {
+        title: 'Developer',
+        description: 'TypeScript'
+    }
+}
+
+console.log(fetchedUserData?.job?.title)
+
+
 // const a = add2(2, 3);
 // console.log(a);
 
