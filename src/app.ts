@@ -24,6 +24,8 @@ type Numeric = number | boolean;
 // CombinableとNumericで共通しているのがnumberなのでnumber型になる
 type Universal = Combinable & Numeric;
 
+function add2(a: string, b: string): string;
+function add2(a: number, b: number): number;
 function add2(a: Combinable, b: Combinable) {
   // 型によって処理を切り替える→型がーど
   // aかbどちらかがstringであれば文字列化する
@@ -33,104 +35,107 @@ function add2(a: Combinable, b: Combinable) {
   return a + b;
 }
 
-const a = add2(2, 3);
-console.log(a);
 
-type UnknownEmployee = Employee | Admin;
+const result = add2('hoge', 'fuga') 
 
-function printEmployeeInformation(emp: UnknownEmployee) {
-  if ('privileges' in emp) {
-    console.log('Privileges ' + emp.privileges);
-  }
+// const a = add2(2, 3);
+// console.log(a);
 
-  if ('startDate' in emp) {
-    console.log('start Date: ' + emp.startDate);
-  }
-  console.log(emp.name);
-}
+// type UnknownEmployee = Employee | Admin;
 
-printEmployeeInformation(e1);
+// function printEmployeeInformation(emp: UnknownEmployee) {
+//   if ('privileges' in emp) {
+//     console.log('Privileges ' + emp.privileges);
+//   }
 
-class Car {
-  drive() {
-    console.log('運転中...');
-  }
-}
+//   if ('startDate' in emp) {
+//     console.log('start Date: ' + emp.startDate);
+//   }
+//   console.log(emp.name);
+// }
 
-class Truck {
-  drive() {
-    console.log('トラックを運転中...');
-  }
+// printEmployeeInformation(e1);
 
-  loadCargo(amount: number) {
-    console.log('荷物を乗せています...' + amount);
-  }
-}
+// class Car {
+//   drive() {
+//     console.log('運転中...');
+//   }
+// }
 
-type Vehicle = Car | Truck;
+// class Truck {
+//   drive() {
+//     console.log('トラックを運転中...');
+//   }
 
-const v1 = new Car();
-const v2 = new Truck();
+//   loadCargo(amount: number) {
+//     console.log('荷物を乗せています...' + amount);
+//   }
+// }
 
-function useVehicle(vehicle: Vehicle) {
-  vehicle.drive();
+// type Vehicle = Car | Truck;
 
-  // Truckのインスタンスから作成されているものか判断する
-  if (vehicle instanceof Truck) {
-    vehicle.loadCargo(1000);
-  }
-}
+// const v1 = new Car();
+// const v2 = new Truck();
 
-useVehicle(v1);
-useVehicle(v2);
+// function useVehicle(vehicle: Vehicle) {
+//   vehicle.drive();
 
-interface Bird {
-  // birdという文字列のみを許容するtypeというプロパティを定義
-  type: 'bird';
-  flyingSpeed: number;
-}
+//   // Truckのインスタンスから作成されているものか判断する
+//   if (vehicle instanceof Truck) {
+//     vehicle.loadCargo(1000);
+//   }
+// }
 
-interface Horse {
-  type: 'horse';
-  runningSpeed: number;
-}
+// useVehicle(v1);
+// useVehicle(v2);
 
-type Animal = Bird | Horse;
+// interface Bird {
+//   // birdという文字列のみを許容するtypeというプロパティを定義
+//   type: 'bird';
+//   flyingSpeed: number;
+// }
 
-function moveAnimal(animal: Animal) {
-  let speed;
-  switch (animal.type) {
-    case 'bird':
-      speed = animal.flyingSpeed;
-      break;
-    case 'horse':
-      speed = animal.runningSpeed;
-  }
+// interface Horse {
+//   type: 'horse';
+//   runningSpeed: number;
+// }
 
-  console.log('移動速度: ' + speed);
-}
+// type Animal = Bird | Horse;
 
-moveAnimal({ type: 'bird', flyingSpeed: 10 });
+// function moveAnimal(animal: Animal) {
+//   let speed;
+//   switch (animal.type) {
+//     case 'bird':
+//       speed = animal.flyingSpeed;
+//       break;
+//     case 'horse':
+//       speed = animal.runningSpeed;
+//   }
 
-// const paragraph = <HTMLInputElement>document.getElementById('user-input')!;
-const paragraph = document.getElementById('user-input');
+//   console.log('移動速度: ' + speed);
+// }
+
+// moveAnimal({ type: 'bird', flyingSpeed: 10 });
+
+// // const paragraph = <HTMLInputElement>document.getElementById('user-input')!;
+// const paragraph = document.getElementById('user-input');
 
 
-if (paragraph) {
-    (paragraph as HTMLInputElement).value = 'こんにちは'
-}
+// if (paragraph) {
+//     (paragraph as HTMLInputElement).value = 'こんにちは'
+// }
 
-interface ErrorContainer { //{ email: '正しいメールアドレスでではありません', username: 'ユーザー名に記号を含めることはできません'}
-    // emailやusernameみたいにstringが入るであろうプロパティ名でなきゃダメだよ~
-    // このstring型の正確な名前はわからないんだよね
-    // どのくらいの数のstring型かもわからないんだよね
-    [prop: string]: string;
+// interface ErrorContainer { //{ email: '正しいメールアドレスでではありません', username: 'ユーザー名に記号を含めることはできません'}
+//     // emailやusernameみたいにstringが入るであろうプロパティ名でなきゃダメだよ~
+//     // このstring型の正確な名前はわからないんだよね
+//     // どのくらいの数のstring型かもわからないんだよね
+//     [prop: string]: string;
 
-    // 同じ型であれば違うプロパティは設定できる(今回はstringならOK)
-    // id: string
-}
+//     // 同じ型であれば違うプロパティは設定できる(今回はstringならOK)
+//     // id: string
+// }
 
-const errorBag: ErrorContainer = {
-    1:'正しい',
-    2:'いいよ'
-}
+// const errorBag: ErrorContainer = {
+//     1:'正しい',
+//     2:'いいよ'
+// }
