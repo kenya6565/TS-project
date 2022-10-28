@@ -51,6 +51,11 @@ const fetchedUserData = {
 console.log(fetchedUserData?.job?.title)
 
 
+const userInput = '';
+
+const storedData = userInput ?? 'DEFAULT'
+
+console.log(storedData)
 // const a = add2(2, 3);
 // console.log(a);
 
