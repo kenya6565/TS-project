@@ -6,13 +6,10 @@
 //   }, 2000);
 // });
 
-// T,Uはそれぞれ違う型を持っているよーってことを伝えている
-function merge<T, U>(objA: T, objB: U) {
+// Tはどんな構造の引数でも受け取れるけどオブジェクト型じゃないとダメだよ
+function merge<T extends object, U extends object>(objA: T, objB: U) {
   return Object.assign(objA, objB);
 }
 
-const mergedObj = merge<{ name: string }, { age: number }>(
-  { name: 'Max' },
-  { age: 30 }
-);
-console.log(mergedObj.age);
+//型推論でobject型ということを明確に伝えなくてもよい
+const mergedObj = merge({ name: 'Max', hobbies: ['sports'] }, { age: 30 });
