@@ -15,15 +15,25 @@ function merge<T extends object, U extends object>(objA: T, objB: U) {
 const mergedObj = merge({ name: 'Max', hobbies: ['sports'] }, { age: 30 });
 
 interface Lengthy {
-    length: number;
+  length: number;
 }
 
 function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
-    let descriptionText = '値がありません'
-    if (element.length > 0) {
-        descriptionText = '値は' + element.length + '個です'
-    }
-    return [element, descriptionText]
+  let descriptionText = '値がありません';
+  if (element.length > 0) {
+    descriptionText = '値は' + element.length + '個です';
+  }
+  return [element, descriptionText];
 }
 
-console.log(countAndDescribe(['hoge', 'fuga']))
+console.log(countAndDescribe(['hoge', 'fuga']));
+
+// UはTのプロパティ(オブジェクト型のkey)として存在しなければならいよ~という指定をkeyofでしている
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return 'Value: ' + obj[key];
+}
+
+console.log(extractAndConvert({"name": 1, "fuga": 2}, 'name'))
