@@ -36,4 +36,40 @@ function extractAndConvert<T extends object, U extends keyof T>(
   return 'Value: ' + obj[key];
 }
 
-console.log(extractAndConvert({"name": 1, "fuga": 2}, 'name'))
+// console.log(extractAndConvert({"name": 1, "fuga": 2}, 'name'))
+
+class DataStorage<T extends string | number | boolean> {
+    // このdataはTの配列型だよ
+    private data: T[] = [];
+
+    // このitemはメソッドの引数
+    addItem(item: T) {
+        this.data.push(item)
+    }
+
+    removeItem(item: T) {
+        this.data.splice(this.data.indexOf(item), 1)
+    }
+
+    getItems() {
+        // このthisはDataStorageクラスを指す
+        console.log(this)
+        return [...this.data]
+    }
+}
+
+const textStorage = new DataStorage<string>()
+const numberStorage = new DataStorage<number>()
+// const objStorage = new DataStorage<object>()
+
+
+// objStorage.addItem({name: 'Max'})
+// objStorage.addItem({name: 'Manu'})
+
+// objStorage.removeItem({name: 'Manu'})
+
+// textStorage.addItem("Data1")
+// textStorage.addItem("Data2")
+// textStorage.removeItem("Data1")
+
+// console.log(objStorage.getItems())

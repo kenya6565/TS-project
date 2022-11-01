@@ -14,5 +14,21 @@ console.log(countAndDescribe(['hoge', 'fuga']));
 function extractAndConvert(obj, key) {
     return 'Value: ' + obj[key];
 }
-console.log(extractAndConvert({ "name": 1, "fuga": 2 }, 'name'));
+class DataStorage {
+    constructor() {
+        this.data = [];
+    }
+    addItem(item) {
+        this.data.push(item);
+    }
+    removeItem(item) {
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+    getItems() {
+        console.log(this);
+        return [...this.data];
+    }
+}
+const textStorage = new DataStorage();
+const numberStorage = new DataStorage();
 //# sourceMappingURL=app.js.map
