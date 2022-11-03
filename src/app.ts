@@ -1,5 +1,6 @@
 
 function Logger(logString: string) {
+    console.log("Logger ファクトリ")
     return function(constructor : Function) {
         console.log(logString)
         console.log(constructor)    
@@ -10,8 +11,10 @@ function Logger(logString: string) {
 
 // htmlのtemplateを受け取りDOMのどこかに表示するデコレーター
 function WithTemplate(template: string, hookId: string) {
+    console.log("Template ファクトリ")
     // この引数は受け取るけど使わないので_を指定する
     return function(constructor : any) {
+        console.log("テンプレートを表示")
         const hookEl = document.getElementById(hookId)
         const p = new constructor()
         if (hookEl) {
@@ -21,8 +24,7 @@ function WithTemplate(template: string, hookId: string) {
     }
 }
 // ここでデコレーターを指定
-// @Logger("ログ出力中 - PERSON")
-
+@Logger("ログ出力中 - PERSON")
 // このappはindex.htmlで指定したid
 @WithTemplate("<h1>Personオブジェクト</h1>", "app")
 class Person {
