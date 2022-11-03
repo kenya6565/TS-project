@@ -3,7 +3,7 @@ let add;
 add = (n1, n2) => {
     return n1 + n2;
 };
-class Person {
+class Person2 {
     constructor(n, age) {
         this.age = age;
         if (n) {
@@ -20,7 +20,7 @@ class Person {
     }
 }
 let user1;
-user1 = new Person('Max', 30);
+user1 = new Person2('Max', 30);
 user1.name = 'John';
 console.log(user1);
 user1.greet('hello I am');

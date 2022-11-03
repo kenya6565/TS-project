@@ -1,42 +1,21 @@
 "use strict";
-function merge(objA, objB) {
-    return Object.assign(objA, objB);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+function Logger(constructor) {
+    console.log("ログ出力中...");
+    console.log(constructor);
 }
-const mergedObj = merge({ name: 'Max', hobbies: ['sports'] }, { age: 30 });
-function countAndDescribe(element) {
-    let descriptionText = '値がありません';
-    if (element.length > 0) {
-        descriptionText = '値は' + element.length + '個です';
-    }
-    return [element, descriptionText];
-}
-console.log(countAndDescribe(['hoge', 'fuga']));
-function extractAndConvert(obj, key) {
-    return 'Value: ' + obj[key];
-}
-class DataStorage {
+let Person = class Person {
     constructor() {
-        this.data = [];
+        this.name = 'Max';
+        console.log('Personオブジェクトを作成中...');
     }
-    addItem(item) {
-        this.data.push(item);
-    }
-    removeItem(item) {
-        this.data.splice(this.data.indexOf(item), 1);
-    }
-    getItems() {
-        console.log(this);
-        return [...this.data];
-    }
-}
-const textStorage = new DataStorage();
-const numberStorage = new DataStorage();
-function createCourseGoal(title, description, date) {
-    let courseGoal = {};
-    courseGoal.title = title;
-    courseGoal.description = description;
-    courseGoal.completeUntil = date;
-    return courseGoal;
-}
-const names = ['Max', 'Anna'];
+};
+Person = __decorate([
+    Logger
+], Person);
 //# sourceMappingURL=app.js.map

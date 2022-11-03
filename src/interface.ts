@@ -23,7 +23,7 @@ interface Greetable extends Named {
 }
 
 // personクラスはGreetableというインターフェースに従って実装するよ
-class Person implements Greetable, Named {
+class Person2 implements Greetable, Named {
   name?: string;
   constructor(n: string, public age: number) {
     if (n) {
@@ -44,7 +44,7 @@ class Person implements Greetable, Named {
 let user1: Greetable;
 
 // user1をPersonに従って定義
-user1 = new Person('Max', 30);
+user1 = new Person2('Max', 30);
 user1.name = 'John';
 console.log(user1);
 user1.greet('hello I am');
