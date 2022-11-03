@@ -34,4 +34,30 @@ Person = __decorate([
     Logger("ログ出力中 - PERSON"),
     WithTemplate("<h1>Personオブジェクト</h1>", "app")
 ], Person);
+const pers = new Person();
+console.log(pers.name);
+function Log(target, propertyName) {
+    console.log("Property デコレーター");
+    console.log(target, propertyName);
+}
+class Product {
+    constructor(t, p) {
+        this.title = t;
+        this._price = p;
+    }
+    set price(val) {
+        if (val > 0) {
+            this._price = val;
+        }
+        else {
+            throw new Error("不正な価格です - 0以下は設定できません");
+        }
+    }
+    getPriceWithTax(tax) {
+        return this._price + (1 + tax);
+    }
+}
+__decorate([
+    Log
+], Product.prototype, "_price", void 0);
 //# sourceMappingURL=app.js.map
