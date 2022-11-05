@@ -8,6 +8,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+function Logger(logString) {
+    console.log('Logger ファクトリ');
+    return function (constructor) {
+        console.log(logString);
+        console.log(constructor);
+    };
+}
+function WithTemplate(template, hookId) {
+    console.log('Template ファクトリ');
+    return function (originalConstructor) {
+        return class extends originalConstructor {
+            constructor(...args) {
+                super();
+                console.log('テンプレートを表示');
+                const hookEl = document.getElementById(hookId);
+                if (hookEl) {
+                    hookEl.innerHTML = template;
+                    hookEl.querySelector('h1').textContent = this.name;
+                }
+            }
+        };
+    };
+}
+let Person = class Person {
+    constructor() {
+        this.name = 'Max';
+        console.log('Personオブジェクトを作成中...');
+    }
+};
+Person = __decorate([
+    Logger('ログ出力中 - PERSON'),
+    WithTemplate('<h1>Personオブジェクト</h1>', 'app')
+], Person);
+const pers = new Person();
+console.log(pers.name);
 function Log(target, propertyName) {
     console.log('Property デコレーター');
     console.log(target, propertyName);

@@ -1,41 +1,52 @@
-// function Logger(logString: string) {
-//     console.log("Logger ファクトリ")
-//     return function(constructor : Function) {
-//         console.log(logString)
-//         console.log(constructor)
-//     }
+function Logger(logString: string) {
+  console.log('Logger ファクトリ');
+  return function (constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
 
-// }
+// htmlのtemplateを受け取りDOMのどこかに表示するデコレーター
+function WithTemplate(template: string, hookId: string) {
+  console.log('Template ファクトリ');
 
-// // htmlのtemplateを受け取りDOMのどこかに表示するデコレーター
-// function WithTemplate(template: string, hookId: string) {
-//     console.log("Template ファクトリ")
-//     // この引数は受け取るけど使わないので_を指定する
-//     return function(constructor : any) {
-//         console.log("テンプレートを表示")
-//         const hookEl = document.getElementById(hookId)
-//         const p = new constructor()
-//         if (hookEl) {
-//             hookEl.innerHTML = template
-//             hookEl.querySelector('h1')!.textContent = p.name
-//         }
-//     }
-// }
-// // ここでデコレーターを指定
-// @Logger("ログ出力中 - PERSON")
-// // このappはindex.htmlで指定したid
-// @WithTemplate("<h1>Personオブジェクト</h1>", "app")
-// class Person {
-//   name = 'Max';
+//   これはオブジェクトですが、newキーワードを使ってインスタンスを作成できる関数ですという意味
+// そしてその引数はレストパラメータで何個でも受け取れますよという意味
+// 返り値はnameがある何らかのオブジェクトですよ→下の処理がそれを受け取る
+  return function<T extends {new(...args: any[]): {name: string}}> (originalConstructor: T) {
+    // このconstructorは上のconstructorを継承しているので
+    // オリジナルのメソッドやプロパティが受け継がれている
+    // このclassはデコレーターを呼び出したクラスに対して返される新たなクラス
+    return class extends originalConstructor {
+    //   上のfunctionの引数を受け取る必要がある
+      constructor(...args: any[]) {
+        // superによってoriginalConstructorが呼び出される
+        super();
+        console.log('テンプレートを表示');
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector('h1')!.textContent = this.name;
+        }
+      }
+    };
+  };
+}
+// ここでデコレーターを指定
+@Logger('ログ出力中 - PERSON')
+// このappはindex.htmlで指定したid
+@WithTemplate('<h1>Personオブジェクト</h1>', 'app')
+class Person {
+  name = 'Max';
 
-//   constructor() {
-//     console.log('Personオブジェクトを作成中...');
-//   }
-// }
+  constructor() {
+    console.log('Personオブジェクトを作成中...');
+  }
+}
 
-// const pers = new Person();
+const pers = new Person();
 
-// console.log(pers.name);
+console.log(pers.name);
 
 // ---
 // インスタンスプロパティ(title)にデコレーターを設定するとクラスのプロトタイプ(Productクラス)がtargetに入る
@@ -64,10 +75,10 @@ function Log3(
 }
 
 function Log4(target: any, name: string | Symbol, position: number) {
-    console.log('パラメータ　デコレータ')
-    console.log(target)
-    console.log(name)
-    console.log(position)
+  console.log('パラメータ　デコレータ');
+  console.log(target);
+  console.log(name);
+  console.log(position);
 }
 
 class Product {
