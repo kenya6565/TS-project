@@ -10,15 +10,17 @@ function Logger(logString: string) {
 function WithTemplate(template: string, hookId: string) {
   console.log('Template ファクトリ');
 
-//   これはオブジェクトですが、newキーワードを使ってインスタンスを作成できる関数ですという意味
-// そしてその引数はレストパラメータで何個でも受け取れますよという意味
-// 返り値はnameがある何らかのオブジェクトですよ→下の処理がそれを受け取る
-  return function<T extends {new(...args: any[]): {name: string}}> (originalConstructor: T) {
+  //   これはオブジェクトですが、newキーワードを使ってインスタンスを作成できる関数ですという意味
+  // そしてその引数はレストパラメータで何個でも受け取れますよという意味
+  // 返り値はnameがある何らかのオブジェクトですよ→下の処理がそれを受け取る
+  return function <T extends { new (...args: any[]): { name: string } }>(
+    originalConstructor: T
+  ) {
     // このconstructorは上のconstructorを継承しているので
     // オリジナルのメソッドやプロパティが受け継がれている
     // このclassはデコレーターを呼び出したクラスに対して返される新たなクラス
     return class extends originalConstructor {
-    //   上のfunctionの引数を受け取る必要がある
+      //   上のfunctionの引数を受け取る必要がある
       constructor(...args: any[]) {
         // superによってoriginalConstructorが呼び出される
         super();
@@ -107,3 +109,38 @@ class Product {
     return this._price + (1 + tax);
   }
 }
+
+// targetはインスタンスメソッドはprototype
+// staticメソッドはconstructor関数が入ってくる
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+  // 元のメソッドのオブジェクトを取得
+  const originalMethod = descriptor.value;
+
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    // returnする前にここで何か処理することができる
+    get() {
+      // このthisはget()の呼び出しもと→adsDescriptorを指す?
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    }
+  };
+  // ここで上のadjDescriptorを返す(新しいdescriptorに上書き)
+  return adjDescriptor;
+}
+class Printer {
+  message = 'クリックしました';
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer();
+const button = document.querySelector('button')!;
+
+// このeventListnerからshowMessageが呼ばれた場合,thisにはpのクラスが入るようになる
+// これをしないとthisには呼び出し元のbuttonが入ることになる
+button.addEventListener('click', p.showMessage);
